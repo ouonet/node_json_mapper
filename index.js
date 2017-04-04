@@ -21,22 +21,27 @@ function getClazzNameOfObjectArray(obj) {
 function jsonMap(obj, clazzName, clazzMaps) {
 
     function parseOneClazz(obj, clazzName) {
-        var clz = clazzMaps[clazzName];
+        var clz = _.isFunction(clazzName) ? clazzName : clazzMaps[clazzName];
         var result = new clz();
         _.each(_.keys(obj), function (key) {
-                if (obj[key] == undefined) {
+                var propValue = obj[key];
+                if (propValue == undefined) {
                     logger.warn(key, 'is empty');
                 }
                 if (!result.hasOwnProperty(key)) {
                     logger.warn(key, 'is not in ', clazzName);
                 }
-                var subClzName = getClazzNameOfObjectArray(obj[key]);
+                var subClzName = getClazzNameOfObjectArray(propValue);
                 if (subClzName == false) {
-                    if (_.isObject(obj[key])) {
-                        result[key] = parseOneClazz(obj[key], key);
-                    } else result[key] = obj[key];
+                    if (_.isArray(propValue) && clazzMaps.hasOwnProperty(key)) {
+                        result[key] = _.map(propValue, function (oneObj) {
+                            return parseOneClazz(oneObj, key);
+                        })
+                    } else if (_.isObject(propValue) && !_.isArray(propValue)) {
+                        result[key] = parseOneClazz(propValue, key);
+                    } else  result[key] = propValue;
                 } else {
-                    result[key] = _.map(obj[key][subClzName], function (subClzObj) {
+                    result[key] = _.map(propValue[subClzName], function (subClzObj) {
                         return parseOneClazz(subClzObj, subClzName)
                     })
                 }
