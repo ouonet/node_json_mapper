@@ -1,0 +1,27 @@
+{
+  "name": "node_json_map",
+  "version": "1.0.0",
+  "description": "map json to particular object prototype",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ouonet/node_json_mapper.git"
+  },
+  "keywords": [
+    "javascript",
+    "json"
+  ],
+  "author": "neo <50712369>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ouonet/node_json_mapper/issues"
+  },
+  "homepage": "https://github.com/ouonet/node_json_mapper#readme",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "log4js": "^1.1.1"
+  }
+}
