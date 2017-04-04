@@ -26,10 +26,10 @@ function jsonMap(obj, clazzName, clazzMaps) {
         _.each(_.keys(obj), function (key) {
                 var propValue = obj[key];
                 if (propValue == undefined) {
-                    logger.warn(key, 'is empty');
+                    logger.trace(key, 'is empty');
                 }
                 if (!result.hasOwnProperty(key)) {
-                    logger.warn(key, 'is not in ', clazzName);
+                    logger.trace(key, 'is not in ', clazzName);
                 }
                 var subClzName = getClazzNameOfObjectArray(propValue);
                 if (subClzName == false) {
